@@ -1,0 +1,22 @@
+name: Update Accounts
+
+on:
+  push:
+    branches:
+      - main  # Adjust branch name as needed
+
+jobs:
+  update-accounts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update accounts.json in bobreed24/accounts
+        run: |
+          # Fetch accounts.json from bobreed24/accounts and update
+          echo '${{ toJSON(steps.accounts.outputs.accounts) }}' > updated-accounts.json
+          # Use GitHub API to update accounts.json in bobreed24/accounts
+
+      # Add more steps for committing and pushing changes
