@@ -13,12 +13,8 @@ async function submitForm(event) {
         password: password
     };
 
-    const repoOwner = 'bobreed24'; // Replace with your GitHub username or organization
-    const repoName = 'bobreed24.github.io'; // Replace with your repository name
-    const path = 'data/accounts.json'; // Path to your JSON file in the repository
-
     try {
-        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
+        const response = await fetch('https://api.github.com/repos/bobreed24/accounts/contents/accounts.json', {
             method: 'GET',
             headers: {
                 'Authorization': `token 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`
@@ -37,7 +33,7 @@ async function submitForm(event) {
         accounts.push(payload);
 
         // Update file in the repository
-        await updateFile(repoOwner, repoName, path, JSON.stringify(accounts));
+        await updateFile(JSON.stringify(accounts));
 
         alert('Form submitted successfully!');
     } catch (error) {
@@ -46,11 +42,11 @@ async function submitForm(event) {
     }
 }
 
-async function updateFile(repoOwner, repoName, path, content) {
+async function updateFile(content) {
     const encodedContent = btoa(content); // Encode content to base64
 
     try {
-        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${path}`, {
+        const response = await fetch('https://api.github.com/repos/bobreed24/accounts/contents/accounts.json', {
             method: 'PUT',
             headers: {
                 'Authorization': `token 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`,
